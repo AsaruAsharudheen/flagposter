@@ -24,7 +24,7 @@ const Poster = () => {
     html2canvas(posterElement, {
       useCORS: true,
       allowTaint: false,
-      scale: 4, // HIGH resolution for sharp output
+      scale: 8, // HIGH resolution for sharp output
       width: width,
       height: height,
       backgroundColor: null,
