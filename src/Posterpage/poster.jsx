@@ -18,14 +18,22 @@ const Poster = () => {
   const handleDownloadImage = () => {
     if (!posterRef.current) return;
 
-    html2canvas(posterRef.current, {
+    const posterElement = posterRef.current;
+    const rect = posterElement.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    html2canvas(posterElement, {
       useCORS: true,
       allowTaint: false,
-      scale: 2,
+      scale: 3, // Higher scale = better quality
+      width: width,
+      height: height,
+      backgroundColor: null, // if you want transparency
     }).then(canvas => {
       const link = document.createElement('a');
       link.download = 'poster.png';
-      link.href = canvas.toDataURL('image/png');
+      link.href = canvas.toDataURL('image/png', 1.0); // 1.0 = max quality
       link.click();
     });
   };
