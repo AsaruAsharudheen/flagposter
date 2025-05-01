@@ -18,21 +18,27 @@ const Poster = () => {
   const handleDownloadImage = () => {
     if (!posterRef.current) return;
 
-    const posterElement = posterRef.current;
-    const { width, height } = posterElement.getBoundingClientRect();
+    const poster = posterRef.current;
 
-    html2canvas(posterElement, {
+    html2canvas(poster, {
       useCORS: true,
-      allowTaint: false,
-      scale: 4, // HIGH resolution for sharp output
-      width: width,
-      height: height,
-      backgroundColor: null,
+      allowTaint: true,
+      backgroundColor: null, // Keeps transparent background if any
+      scale: 3, // Increase this for sharper image
+      logging: false,
+      removeContainer: true,
     }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = 'poster.png';
-      link.href = canvas.toDataURL('image/png', 1.0); // Max quality
-      link.click();
+      // Convert to blob and download for better quality
+      canvas.toBlob(
+        blob => {
+          const link = document.createElement('a');
+          link.download = 'poster.png';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        },
+        'image/png',
+        1
+      ); // 1 = best quality
     });
   };
 

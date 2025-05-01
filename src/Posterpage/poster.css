@@ -126,3 +126,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.poster-wrapper {
+  transform: scale(1); /* Ensure it's not scaled down */
+  width: fit-content;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: crisp-edges;
+}
