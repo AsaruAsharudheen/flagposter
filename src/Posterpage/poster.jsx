@@ -19,21 +19,19 @@ const Poster = () => {
     if (!posterRef.current) return;
 
     const posterElement = posterRef.current;
-    const rect = posterElement.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
+    const { width, height } = posterElement.getBoundingClientRect();
 
     html2canvas(posterElement, {
       useCORS: true,
       allowTaint: false,
-      scale: 3, // Higher scale = better quality
+      scale: 4, // HIGH resolution for sharp output
       width: width,
       height: height,
-      backgroundColor: null, // if you want transparency
+      backgroundColor: null,
     }).then(canvas => {
       const link = document.createElement('a');
       link.download = 'poster.png';
-      link.href = canvas.toDataURL('image/png', 1.0); // 1.0 = max quality
+      link.href = canvas.toDataURL('image/png', 1.0); // Max quality
       link.click();
     });
   };
